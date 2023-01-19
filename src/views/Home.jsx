@@ -1,25 +1,27 @@
-import { View, Text, ImageBackground ,Image,StyleSheet, Pressable} from 'react-native'
+import { View, Text, ImageBackground, Image, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
-import { LinearGradient } from 'expo-linear-gradient';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
+import CartButton from '../components/CartButton';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 
 export default function Home({navigation}) {
+  const {logged} = useSelector(store => store.userReducer)
+  const {t} = useTranslation()
   return (
     <View style={style.container}>
-    <ImageBackground source={{uri:'https://media4.giphy.com/media/lmjzmEcZLkcMLtVrWi/giphy.gif'}} style={style.imageContainer} >
-      <Image  source={require('../../assets/ticketlogorotado.png')} style={style.logo} />
-      <LinearGradient end={{x: 0.7, y: 0.5 }} style={style.gradient}  colors={['#647DEE','#B621FE']}>
-    <Text style={style.text} >Tickets Pass</Text>
-      </LinearGradient>
-    </ImageBackground>
-    <View style={style.content}>
-      <Pressable style={style.button} onPress={() => navigation.navigate("Artists")}>
-        <Text style={style.buttonText}>Artists</Text>
-      </Pressable>
-      <Pressable style={style.button} onPress={() => navigation.navigate("Concerts")}>
-        <Text style={style.buttonText}>Concerts</Text>
-      </Pressable>
-    </View>
+      <ImageBackground source={require('../../assets/background2.jpg')} style={{ flex: 1 }} resizeMode="cover">
+        <View style={style.content}>
+          <Button mode="contained" icon="account-music" style={style.button} onPress={() => navigation.navigate(t('artist'))}>
+            <Text style={style.buttonText}>{t('artist')}</Text>
+          </Button>
+          <Button mode="contained" icon="music-note" style={style.button} onPress={() => navigation.navigate(t('concert'))}>
+            <Text style={style.buttonText}>{t('concert')}</Text>
+          </Button>
+        </View>
+        {logged && <CartButton />}
+      </ImageBackground>
     </View>
   )
 }
@@ -30,41 +32,34 @@ const style = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    alignItems:'center'
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  logo: {
-    width:150,
-    height:150
-  },
-  gradient: {
-    borderRadius:25,
-    transform:[{rotate:'10deg'}],
-    padding:5
-  },
-  text:{
-    fontSize:40,
-    color:'#FFFFFF',
-    fontFamily:'monospace',
-    paddingHorizontal:50,
-    textShadowColor:'#fff',
-    textShadowOffset:{width: 10, height: 10},
-    textShadowRadius:40,
+  text: {
+    fontSize: 40,
+    color: '#FFFFFF',
+    fontFamily: 'monospace',
+    paddingHorizontal: 50,
+    textShadowColor: '#fff',
+    textShadowOffset: { width: 10, height: 10 },
+    textShadowRadius: 40,
     borderColor: '#fff',
     borderWidth: 5,
-    borderRadius:25,
-    textAlign:'center'
+    borderRadius: 25,
+    textAlign: 'center'
   },
   content: {
-    flex:  1,
-    backgroundColor: '#000',
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
     padding: 20
   },
   button: {
-    width: '100%',
-    backgroundColor: 'purple',
-    padding: 15,
-    borderRadius: 8
+    paddingVertical: 10,
+    borderRadius: 8,
+    width: '40%',
+    height: 60,
   },
   buttonText: {
     color: 'white',

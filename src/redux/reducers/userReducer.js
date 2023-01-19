@@ -6,6 +6,7 @@ const initialState = {
     user:'',
     photo:'',
     name:'',
+    lastName:'',
     logged:false,
     role:'',
     id:'',
@@ -27,7 +28,8 @@ const userReducer = createReducer(initialState,(item)=>{
                     ...state,
                     user:user,
                     photo:user.photo,
-                    name:user.name + ' '+ user.lastName,
+                    name:user.name,
+                    lastName:user.lastName,
                     logged:true,
                     role:user.role,
                     id: user.id,
@@ -48,15 +50,16 @@ const userReducer = createReducer(initialState,(item)=>{
         .addCase(userActions.signToken.fulfilled, (state, action) => {
             const {success,response} = action.payload
             if (success){
-                let {user,token} = response
+                let {user} = response
                 let newState = {
                     ...state,
-                    name:user.user.name ,
-                    photo:user.user.photo,
+                    user:user,
+                    name:user.name ,
+                    lastName:user.lastName,
+                    photo:user.photo,
                     logged:true,
-                    role:user.user.role,
-                    id:user.user.id,
-                    token:token,
+                    role:user.role,
+                    id:user.id,
                     load:false,
                     error:false
                 }
@@ -78,9 +81,11 @@ const userReducer = createReducer(initialState,(item)=>{
                 AsyncStorage.removeItem('token')
                 let newState = {
                     ...state,
+                    user:'',
                     id:'',
                     photo: '',
                     name: '',
+                    lastName:'',
                     logged: false,
                     role: '',
                     token: '',
@@ -92,6 +97,52 @@ const userReducer = createReducer(initialState,(item)=>{
                 let newState = {
                     ...state,
                     message: response
+                }
+                return newState
+            }
+        })
+        .addCase(userActions.getUser.fulfilled,(state,action)=>{
+            const {success,response} = action.payload
+            if (success){
+                let {user} = response
+                let newState = {
+                    ...state,
+                    name:user.user.name ,
+                    lastName:user.user.lastName ,
+                    photo:user.user.photo,
+                    logged:true,
+                    role:user.user.role,
+                    id:user.user.id,
+                    load:false,
+                    error:false,
+                    user:user.user
+                }
+                return newState
+            }else{
+                let newState = {
+                    ...state,
+                    message:response
+                }
+                return newState
+            }
+        })
+        .addCase(userActions.updateUser.fulfilled,(state,action)=>{
+            const {success,response} = action.payload
+            if (success){
+                let {data} = response
+                
+                let newState = {
+                    ...state,
+                    user:data,
+                    photo:data.photo,
+                    name:data.name ,
+                    lastName:data.lastName,
+                }
+                return newState
+            }else{
+                let newState = {
+                    ...state,
+                    message:response
                 }
                 return newState
             }

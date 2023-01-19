@@ -9,6 +9,7 @@ const signIn = createAsyncThunk('signIn',async(datos)=>{
         return {
             success:res.data.success,
             response:res.data,
+            message:res.data.message
         }
     }catch (error) {
         return {
@@ -40,10 +41,7 @@ const signToken = createAsyncThunk('signToken', async(token) => {
         let user = await axios.post(`${apiUrl}/auth/token`, null, headers)
         return {
             success:user.data.success,
-            response: {
-                user: user.data.response,
-                token
-            }
+            response: res.data
         }
     } catch (error) {
         return {
@@ -68,6 +66,37 @@ const signOut = createAsyncThunk('signOut', async(token) => {
         }
     }
 })
+const getUser = createAsyncThunk ('getUser',async(id)=>{
+    try {
+        let res = await axios.get(`${apiUrl}/auth/me/${id}`)
+        return {
+            success:res.data.success,
+            response:res.data,
+        }
+    }catch (error) {
+        return {
+            success: false,
+            response: error.response.data.message
+        }
+    }
+})
+
+const updateUser = createAsyncThunk('updateUser',async(datos)=>{
+    let dato = datos.dato
+    try {
+        let res = await axios.patch(`${apiUrl}/auth/me/${datos.id}`,dato)
+        
+        return {
+            success:res.data.success,
+            response:res.data,
+        }
+    }catch (error) {
+        return {
+            success: false,
+            response: error.response.data.message
+        }
+    }
+})
 
 
 const userAction = {
@@ -75,6 +104,8 @@ const userAction = {
     signToken,
     signOut,
     signUp,
+    getUser,
+    updateUser
 }
 
 export default userAction

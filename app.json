@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ticketspass-mobile",
+    "name": "Ticket Pass+",
     "slug": "ticketspass-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/ticketlogorotado.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/boleto.png",
+    "userInterfaceStyle": "ligth",
     "splash": {
       "image": "./assets/ticketlogorotado.png",
       "resizeMode": "contain",
@@ -22,8 +22,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/boleto.png",
+        "backgroundColor": "#000"
       },
       "package": "com.estebanfonse.ticketspassmobile"
     },
