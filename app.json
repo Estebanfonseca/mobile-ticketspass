@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "ticketspass-mobile",
+    "slug": "ticketspass-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/ticketlogorotado.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/ticketlogorotado.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.estebanfonse.ticketspassmobile"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8315f001-fb91-4faa-bc63-30f2f0115775"
+      }
+    }
+  }
+}
